@@ -76,7 +76,7 @@ sender.send(data)
 ```
 
 #### `AnimationData` type notes
-The Kotlin/Java library uses the following values for `continuous` and `direction`:
+The Kotlin/JVM library uses the following values for `continuous` and `direction`:
 - `continuous`: `null`, `true`, `false`
 - `direction`: `Direction.FORWARD`, `Direction.BACKWARD`
 

@@ -14,14 +14,11 @@ branches:
   only:
     - master
     - /^travis.*/
-    - /^v.*/
 
 stages:
   - name: test
-  - name: deploy snapshot
+  - name: deploy
     if: branch = master AND type != pull_request
-  - name: deploy release
-    if: branch =~ ^v.*$
 
 jobs:
   include:
@@ -29,14 +26,24 @@ jobs:
       install: skip
       after_success: bash <(curl -s https://codecov.io/bash)
 
-    - stage: deploy release
+    - stage: deploy
+      install: skip
+      script: skip
+      deploy:
+        - provider: script
+          script: mvn deploy --settings .maven.xml -DskipTests=true -DdoDokka=true -B
+
+    - stage: deploy
       script: skip
       install: skip
+      before_script:
+        - DEPLOY_DOCS=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2> /dev/null | grep -v SNAPSHOT) || echo "Snapshot detected, skipping doc deploy"
       deploy:
         - provider: script
           script: mvn site --settings .maven.xml -DskipTests=true -DdoDokka=true -B && git add dokka
           on:
-            all_branches: true
+            tags: false
+            condition: $DEPLOY_DOCS
         - provider: pages
           skip-cleanup: true
           github-token: $GITHUB_TOKEN
@@ -44,22 +51,5 @@ jobs:
           verbose: true
           local_dir: ./dokka
           on:
-            all_branches: true
-
-    - stage: deploy release
-      install: skip
-      script: skip
-      deploy:
-        - provider: script
-          script: mvn deploy --settings .maven.xml -DskipTests=true -DdoDokka=true -B
-          on:
-            all_branches: true
-
-    - stage: deploy snapshot
-      install: skip
-      script: skip
-      deploy:
-        - provider: script
-          script: mvn deploy --settings .maven.xml -DskipTests=true -DdoDokka=true -B
-          on:
-            all_branches: true
+            tags: false
+            condition: $DEPLOY_DOCS

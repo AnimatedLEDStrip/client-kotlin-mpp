@@ -1,0 +1,231 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>AnimationSender - animatedledstrip-client</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">animatedledstrip-client</a>&nbsp;/&nbsp;<a href="../index.html">animatedledstrip.client</a>&nbsp;/&nbsp;<a href="./index.html">AnimationSender</a><br/>
+<br/>
+<h1>AnimationSender</h1>
+<code><span class="keyword">class </span><span class="identifier">AnimationSender</span></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<code><span class="identifier">AnimationSender</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$<init>(kotlin.String, kotlin.Int)/ipAddress">ipAddress</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="animatedledstrip.client.AnimationSender$<init>(kotlin.String, kotlin.Int)/port">port</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="connected.html">connected</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">connected</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="ip-address.html">ipAddress</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">ipAddress</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="port.html">port</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">port</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="running-animations.html">runningAnimations</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">runningAnimations</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html"><span class="identifier">MutableMap</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">AnimationData</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="started.html">started</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">started</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="strip-info.html">stripInfo</a></h4>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">stripInfo</span><span class="symbol">: </span><span class="identifier">StripInfo</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="supported-animations.html">supportedAnimations</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">supportedAnimations</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html"><span class="identifier">MutableMap</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">AnimationInfo</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="end.html">end</a></h4>
+</td>
+<td>
+<p>Stop this connection</p>
+<code><span class="keyword">fun </span><span class="identifier">end</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="send.html">send</a></h4>
+</td>
+<td>
+<p>Send data via this connection</p>
+<code><span class="keyword">fun </span><span class="identifier">send</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$send(animatedledstrip.utils.SendableData)/args">args</span><span class="symbol">:</span>&nbsp;<span class="identifier">SendableData</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="send-bytes.html">sendBytes</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sendBytes</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$sendBytes(kotlin.ByteArray)/str">str</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-byte-array/index.html"><span class="identifier">ByteArray</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-as-default-sender.html">setAsDefaultSender</a></h4>
+</td>
+<td>
+<p>Set this sender as the default sender</p>
+<code><span class="keyword">fun </span><span class="identifier">setAsDefaultSender</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-i-p-address.html">setIPAddress</a></h4>
+</td>
+<td>
+<p>Set this connection's IP address.
+Will start/restart connection if start = true or if
+connection is running and start = null.</p>
+<code><span class="keyword">fun </span><span class="identifier">setIPAddress</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setIPAddress(kotlin.String, kotlin.Boolean)/address">address</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="animatedledstrip.client.AnimationSender$setIPAddress(kotlin.String, kotlin.Boolean)/start">start</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-connect-callback.html">setOnConnectCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when a connection is established</p>
+<code><span class="keyword">fun </span><span class="identifier">setOnConnectCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnConnectCallback(kotlin.Function2((kotlin.String, kotlin.Int, kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-disconnect-callback.html">setOnDisconnectCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when a connection is lost</p>
+<code><span class="keyword">fun </span><span class="identifier">setOnDisconnectCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnDisconnectCallback(kotlin.Function2((kotlin.String, kotlin.Int, kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-new-animation-data-callback.html">setOnNewAnimationDataCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when a new AnimationData instance is received from the server.
+Runs after onReceive callback.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">setOnNewAnimationDataCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnNewAnimationDataCallback(kotlin.Function1((animatedledstrip.animationutils.AnimationData, animatedledstrip.client.AnimationSender.setOnNewAnimationDataCallback.R)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">AnimationData</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-new-animation-info-callback.html">setOnNewAnimationInfoCallback</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">setOnNewAnimationInfoCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnNewAnimationInfoCallback(kotlin.Function1((animatedledstrip.animationutils.Animation.AnimationInfo, animatedledstrip.client.AnimationSender.setOnNewAnimationInfoCallback.R)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">AnimationInfo</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-new-end-animation-callback.html">setOnNewEndAnimationCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when a new EndAnimation instance is received from the server.
+Runs after onReceive callback.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">setOnNewEndAnimationCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnNewEndAnimationCallback(kotlin.Function1((animatedledstrip.animationutils.EndAnimation, animatedledstrip.client.AnimationSender.setOnNewEndAnimationCallback.R)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">EndAnimation</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-new-section-callback.html">setOnNewSectionCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when a new Section instance is received from the server.
+Runs after onReceive callback.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">setOnNewSectionCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnNewSectionCallback(kotlin.Function1((animatedledstrip.leds.AnimatedLEDStrip.Section, animatedledstrip.client.AnimationSender.setOnNewSectionCallback.R)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">Section</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-new-strip-info-callback.html">setOnNewStripInfoCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when a new StripInfo instance is received from the server.
+Runs after onReceive callback.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">setOnNewStripInfoCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnNewStripInfoCallback(kotlin.Function1((animatedledstrip.leds.StripInfo, animatedledstrip.client.AnimationSender.setOnNewStripInfoCallback.R)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">StripInfo</span><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-receive-callback.html">setOnReceiveCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when data is received from the server</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">R</span><span class="symbol">&gt;</span> <span class="identifier">setOnReceiveCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnReceiveCallback(kotlin.Function1((kotlin.String, animatedledstrip.client.AnimationSender.setOnReceiveCallback.R)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<span class="identifier">R</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-on-unable-to-connect-callback.html">setOnUnableToConnectCallback</a></h4>
+</td>
+<td>
+<p>Specify an action to perform when a connection cannot be made</p>
+<code><span class="keyword">fun </span><span class="identifier">setOnUnableToConnectCallback</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setOnUnableToConnectCallback(kotlin.Function2((kotlin.String, kotlin.Int, kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="set-port.html">setPort</a></h4>
+</td>
+<td>
+<p>Set this connection's port.
+Will start/restart connection if start = true or if
+connection is running and start = null.</p>
+<code><span class="keyword">fun </span><span class="identifier">setPort</span><span class="symbol">(</span><span class="identifier" id="animatedledstrip.client.AnimationSender$setPort(kotlin.Int, kotlin.Boolean)/newPort">newPort</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="animatedledstrip.client.AnimationSender$setPort(kotlin.Int, kotlin.Boolean)/start">start</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="start.html">start</a></h4>
+</td>
+<td>
+<p>Start this connection</p>
+<code><span class="keyword">fun </span><span class="identifier">start</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="default-sender.html">defaultSender</a></h4>
+</td>
+<td>
+<p>The default sender if none is specified</p>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">defaultSender</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">AnimationSender</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

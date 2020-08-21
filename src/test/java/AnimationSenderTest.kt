@@ -52,24 +52,20 @@ class AnimationSenderTest {
     @Test
     fun testStart() {
         val port = 1101
+        var testBoolean = false
 
         val job = GlobalScope.launch(Dispatchers.IO) {
             ServerSocket(port, 0, InetAddress.getByName("0.0.0.0")).accept()
+            testBoolean = true
         }
 
         delayBlocking(2000)
-
-        startLogCapture()
 
         AnimationSender("0.0.0.0", port).start()
 
         runBlocking { job.join() }
 
-        delayBlocking(500)
-
-        assertLogsInclude(setOf(Pair(Level.INFO, "Connected to server at 0.0.0.0:$port")))
-
-        stopLogCapture()
+        assertTrue { testBoolean }
     }
 
     @Test
@@ -86,6 +82,7 @@ class AnimationSenderTest {
         AnimationSender("0.0.0.0", port)
             .setOnConnectCallback { _, _ ->
                 testBoolean = true
+                Unit
             }
             .start()
 
@@ -130,9 +127,11 @@ class AnimationSenderTest {
             .setAsDefaultSender()
             .setOnUnableToConnectCallback { _, _ ->
                 testBoolean1 = true
+                Unit
             }
             .setOnConnectCallback { _, _ ->
                 testBoolean2 = true
+                Unit
             }
             .start()
 
@@ -290,14 +289,20 @@ class AnimationSenderTest {
     fun testMultipleStarts() {
         val port = 1111
 
-        startLogCapture()
+        GlobalScope.launch(Dispatchers.IO) {
+            val s = ServerSocket(port, 0, InetAddress.getByName("0.0.0.0"))
+            s.accept()
+        }
 
         val testSender = AnimationSender("0.0.0.0", port).start()
+
+        delayBlocking(2000)
+
+        assertTrue { testSender.started }
+
         testSender.start()
 
-        assertLogsInclude(setOf(Pair(Level.WARNING, "Sender started already")))
-
-        stopLogCapture()
+        assertTrue { testSender.started }
     }
 
     @Test
@@ -327,25 +332,25 @@ class AnimationSenderTest {
 
         val sender = AnimationSender("0.0.0.0", port)
 
-        assertTrue { sender.ipAddress == "0.0.0.0" }
+        assertTrue { sender.address == "0.0.0.0" }
 
         sender.setIPAddress("1.1.1.1", start = null)
         delayBlocking(100)
-        assertTrue { sender.ipAddress == "1.1.1.1" }
+        assertTrue { sender.address == "1.1.1.1" }
 
         sender.setIPAddress("0.0.0.0", start = true)
         delayBlocking(1000)
-        assertTrue { sender.ipAddress == "0.0.0.0" }
+        assertTrue { sender.address == "0.0.0.0" }
         assertTrue { sender.started }
 
         sender.setIPAddress("0.0.0.0", start = null)
         delayBlocking(3000)
-        assertTrue { sender.ipAddress == "0.0.0.0" }
+        assertTrue { sender.address == "0.0.0.0" }
         assertTrue { sender.started }
 
         sender.setIPAddress("1.1.1.1", start = false)
         delayBlocking(100)
-        assertTrue { sender.ipAddress == "1.1.1.1" }
+        assertTrue { sender.address == "1.1.1.1" }
         assertFalse { sender.started }
     }
 

@@ -38,11 +38,11 @@ import java.net.Socket
 import java.net.SocketException
 import java.net.SocketTimeoutException
 
-class AnimationSender(var ipAddress: String, var port: Int) {
+class AnimationSender(var address: String, var port: Int) {
 
     /* Connection */
 
-    private var socket: Socket = Socket()
+    private var connection: Socket = Socket()
     private var socIn: InputStream? = null
     private var socOut: OutputStream? = null
 
@@ -52,44 +52,78 @@ class AnimationSender(var ipAddress: String, var port: Int) {
 
     /* Status */
 
-    var started = false
+    var started: Boolean = false
         private set
     var connected: Boolean = false
         private set
 
-
-    /* Callbacks */
-
-    private var receiveAction: ((String) -> Any?)? = null
-
-    private var newAnimationDataAction: ((AnimationData) -> Any?)? = null
-    private var newAnimationInfoAction: ((Animation.AnimationInfo) -> Any?)? = null
-    private var newEndAnimationAction: ((EndAnimation) -> Any?)? = null
-    private var newSectionAction: ((AnimatedLEDStrip.Section) -> Any?)? = null
-    private var newStripInfoAction: ((StripInfo) -> Any?)? = null
-
-    private var connectAction: ((String, Int) -> Unit)? = null
-    private var disconnectAction: ((String, Int) -> Unit)? = null
-    private var unableToConnectAction: ((String, Int) -> Unit)? = null
+    private var connectedIp = ""
 
 
     /* Information about the connected server */
 
-    val supportedAnimations = mutableMapOf<String, Animation.AnimationInfo>()
     val runningAnimations = mutableMapOf<String, AnimationData>()
+    val sections = mutableMapOf<String, AnimatedLEDStrip.Section>()
+    val supportedAnimations = mutableMapOf<String, Animation.AnimationInfo>()
     var stripInfo: StripInfo? = null
+
+
+    /* Callbacks */
+
+    private var onConnectCallback: ((String, Int) -> Any?)? = null
+    private var onDisconnectCallback: ((String, Int) -> Any?)? = null
+    private var onUnableToConnectCallback: ((String, Int) -> Any?)? = null
+
+    private var onReceiveCallback: ((String) -> Any?)? = null
+    private var onNewAnimationDataCallback: ((AnimationData) -> Any?)? = null
+    private var onNewAnimationInfoCallback: ((Animation.AnimationInfo) -> Any?)? = null
+    private var onNewEndAnimationCallback: ((EndAnimation) -> Any?)? = null
+    private var onNewMessageCallback: ((Message) -> Any?)? = null
+    private var onNewSectionCallback: ((AnimatedLEDStrip.Section) -> Any?)? = null
+    private var onNewStripInfoCallback: ((StripInfo) -> Any?)? = null
 
 
     /**
      * Start this connection
      */
     fun start(): AnimationSender {
-        if (!started) {
-            GlobalScope.launch(senderCoroutineScope) {
-                openConnection()
-            }
-            started = true
-        } else Logger.warn("Sender started already")
+        if (started) return this
+
+        runningAnimations.clear()
+        sections.clear()
+        supportedAnimations.clear()
+        stripInfo = null
+
+        started = true
+
+        try {
+            connection = Socket()
+            connection.soTimeout = SOCKET_TIMEOUT
+
+            connection.connect(InetSocketAddress(address, port), SOCKET_TIMEOUT)
+
+            connectedIp = address
+
+            socOut = connection.getOutputStream()
+            socIn = connection.getInputStream()
+        } catch (e: SocketException) {
+            onUnableToConnectCallback?.invoke(address, port)
+            started = false
+            connected = false
+            return this
+        } catch (e: SocketTimeoutException) {
+            onUnableToConnectCallback?.invoke(address, port)
+            started = false
+            connected = false
+            return this
+        }
+
+        connected = true
+        onConnectCallback?.invoke(connectedIp, port)
+
+        GlobalScope.launch(senderCoroutineScope) {
+            receiveLoop()
+        }
         return this
     }
 
@@ -98,47 +132,21 @@ class AnimationSender(var ipAddress: String, var port: Int) {
      */
     fun end() {
         started = false
-        socket.close()
+        connected = false
+        connection.close()
         supportedAnimations.clear()
     }
 
 
     /* Handle receiving data from server */
 
-    private suspend fun openConnection() {
-        var connectedIp = ""
-        socket = Socket()
-        socket.soTimeout = 1000
-
-        withContext(Dispatchers.IO) {
-            try {
-                socket.connect(InetSocketAddress(ipAddress, port), 1000)
-                connectedIp = ipAddress
-                socOut = socket.getOutputStream()
-                socIn = socket.getInputStream()
-                connected = true
-                connectAction?.invoke(connectedIp, port)
-            } catch (e: SocketException) {
-                unableToConnectAction?.invoke(ipAddress, port)
-                started = false
-            } catch (e: SocketTimeoutException) {
-                unableToConnectAction?.invoke(ipAddress, port)
-                started = false
-            }
-        }
-
-        if (!connected) return
-
-        Logger.info("Connected to server at $connectedIp:$port")
-
+    private suspend fun receiveLoop() {
         try {
             while (connected) processData(receiveData())
         } catch (e: IOException) {
-            Logger.warn("IOException: $ipAddress:$port: $e")
-            connected = false
             started = false
-            disconnectAction?.invoke(connectedIp, port)
-            runningAnimations.clear()
+            connected = false
+            onDisconnectCallback?.invoke(connectedIp, port)
         }
     }
 
@@ -163,38 +171,43 @@ class AnimationSender(var ipAddress: String, var port: Int) {
 
     private fun processData(input: String) {
         for (d in splitData(input)) {
-            when (d.getDataTypePrefix()) {
+            if (d.isEmpty()) continue
+
+            onReceiveCallback?.invoke(d)
+
+            when (val dataType = d.getDataTypePrefix()) {
                 AnimationData.prefix -> {
                     val data = d.jsonToAnimationData()
-                    newAnimationDataAction?.invoke(data)
+                    onNewAnimationDataCallback?.invoke(data)
                     runningAnimations[data.id] = data
                 }
                 Animation.AnimationInfo.prefix -> {
                     val info = d.jsonToAnimationInfo()
                     supportedAnimations[info.name] = info
-                    newAnimationInfoAction?.invoke(info)
+                    onNewAnimationInfoCallback?.invoke(info)
                 }
+                Command.prefix -> Logger.warn("Receiving Command is not supported by client")
                 EndAnimation.prefix -> {
                     val end = d.jsonToEndAnimation()
-                    newEndAnimationAction?.invoke(end)
+                    onNewEndAnimationCallback?.invoke(end)
                     runningAnimations.remove(end.id)
                 }
+                Message.prefix -> {
+                    val msg = d.jsonToMessage()
+                    onNewMessageCallback?.invoke(msg)
+                }
                 AnimatedLEDStrip.sectionPrefix -> {     // AnimatedLEDStrip.Section
-                    newSectionAction?.invoke(d.jsonToSection())
+                    val sect = d.jsonToSection()
+                    sections[sect.name] = sect
+                    onNewSectionCallback?.invoke(sect)
                 }
                 StripInfo.prefix -> {
                     val info = d.jsonToStripInfo()
                     stripInfo = info
-                    newStripInfoAction?.invoke(info)
+                    onNewStripInfoCallback?.invoke(info)
                 }
-                else -> {
-                    Logger.debug("Other")
-                }
+                else -> Logger.warn("Unrecognized data type: $dataType")
             }
-
-            Logger.debug("Received: $d")
-
-            receiveAction?.invoke(d)
         }
     }
 
@@ -230,7 +243,7 @@ class AnimationSender(var ipAddress: String, var port: Int) {
     }
 
 
-    fun sendBytes(str: ByteArray) {
+    private fun sendBytes(str: ByteArray) {
         GlobalScope.launch(Dispatchers.IO) {
             socOut?.write(str) ?: Logger.warn("Output stream null")
         }
@@ -240,10 +253,34 @@ class AnimationSender(var ipAddress: String, var port: Int) {
     /* Set methods for callbacks and IP */
 
     /**
+     * Specify an action to perform when a connection is established
+     */
+    fun setOnConnectCallback(action: (String, Int) -> Any?): AnimationSender {
+        onConnectCallback = action
+        return this
+    }
+
+    /**
+     * Specify an action to perform when a connection is lost
+     */
+    fun setOnDisconnectCallback(action: (String, Int) -> Any?): AnimationSender {
+        onDisconnectCallback = action
+        return this
+    }
+
+    /**
+     * Specify an action to perform when a connection cannot be made
+     */
+    fun setOnUnableToConnectCallback(action: (String, Int) -> Any?): AnimationSender {
+        onUnableToConnectCallback = action
+        return this
+    }
+
+    /**
      * Specify an action to perform when data is received from the server
      */
-    fun <R> setOnReceiveCallback(action: (String) -> R): AnimationSender {
-        receiveAction = action
+    fun <R> setOnReceiveCallback(action: (String) -> R?): AnimationSender {
+        onReceiveCallback = action
         return this
     }
 
@@ -251,13 +288,13 @@ class AnimationSender(var ipAddress: String, var port: Int) {
      * Specify an action to perform when a new AnimationData instance is received from the server.
      * Runs after onReceive callback.
      */
-    fun <R> setOnNewAnimationDataCallback(action: (AnimationData) -> R): AnimationSender {
-        newAnimationDataAction = action
+    fun <R> setOnNewAnimationDataCallback(action: (AnimationData) -> R?): AnimationSender {
+        onNewAnimationDataCallback = action
         return this
     }
 
-    fun <R> setOnNewAnimationInfoCallback(action: (Animation.AnimationInfo) -> R): AnimationSender {
-        newAnimationInfoAction = action
+    fun <R> setOnNewAnimationInfoCallback(action: (Animation.AnimationInfo) -> R?): AnimationSender {
+        onNewAnimationInfoCallback = action
         return this
     }
 
@@ -265,8 +302,13 @@ class AnimationSender(var ipAddress: String, var port: Int) {
      * Specify an action to perform when a new EndAnimation instance is received from the server.
      * Runs after onReceive callback.
      */
-    fun <R> setOnNewEndAnimationCallback(action: (EndAnimation) -> R): AnimationSender {
-        newEndAnimationAction = action
+    fun <R> setOnNewEndAnimationCallback(action: (EndAnimation) -> R?): AnimationSender {
+        onNewEndAnimationCallback = action
+        return this
+    }
+
+    fun <R> setOnNewMessageCallback(action: (Message) -> R?): AnimationSender {
+        onNewMessageCallback = action
         return this
     }
 
@@ -274,8 +316,8 @@ class AnimationSender(var ipAddress: String, var port: Int) {
      * Specify an action to perform when a new Section instance is received from the server.
      * Runs after onReceive callback.
      */
-    fun <R> setOnNewSectionCallback(action: (AnimatedLEDStrip.Section) -> R): AnimationSender {
-        newSectionAction = action
+    fun <R> setOnNewSectionCallback(action: (AnimatedLEDStrip.Section) -> R?): AnimationSender {
+        onNewSectionCallback = action
         return this
     }
 
@@ -283,32 +325,8 @@ class AnimationSender(var ipAddress: String, var port: Int) {
      * Specify an action to perform when a new StripInfo instance is received from the server.
      * Runs after onReceive callback.
      */
-    fun <R> setOnNewStripInfoCallback(action: (StripInfo) -> R): AnimationSender {
-        newStripInfoAction = action
-        return this
-    }
-
-    /**
-     * Specify an action to perform when a connection is established
-     */
-    fun setOnConnectCallback(action: (String, Int) -> Unit): AnimationSender {
-        connectAction = action
-        return this
-    }
-
-    /**
-     * Specify an action to perform when a connection is lost
-     */
-    fun setOnDisconnectCallback(action: (String, Int) -> Unit): AnimationSender {
-        disconnectAction = action
-        return this
-    }
-
-    /**
-     * Specify an action to perform when a connection cannot be made
-     */
-    fun setOnUnableToConnectCallback(action: (String, Int) -> Unit): AnimationSender {
-        unableToConnectAction = action
+    fun <R> setOnNewStripInfoCallback(action: (StripInfo) -> R?): AnimationSender {
+        onNewStripInfoCallback = action
         return this
     }
 
@@ -341,7 +359,7 @@ class AnimationSender(var ipAddress: String, var port: Int) {
      */
     fun setIPAddress(address: String, start: Boolean? = null): AnimationSender {
         restartSenderWithChange(start) {
-            ipAddress = address
+            this.address = address
         }
         return this
     }

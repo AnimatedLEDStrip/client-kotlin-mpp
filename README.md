@@ -1,8 +1,8 @@
-# AnimatedLEDStrip Client Library for Kotlin/JVM
-
 [![Build Status](https://travis-ci.com/AnimatedLEDStrip/client-kotlin-jvm.svg?branch=master)](https://travis-ci.com/AnimatedLEDStrip/client-kotlin-jvm)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client)
 [![codecov](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-jvm/branch/master/graph/badge.svg)](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-jvm)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client)
+
+# AnimatedLEDStrip Client Library for Kotlin/JVM
 
 This library allows a Kotlin/JVM client to connect to an AnimatedLEDStrip server, allowing the client to send animations to the server and receive currently running animations from the server, among other information.
 
@@ -194,7 +194,7 @@ Use the following dependency to use this library in your project
 > <dependency>
 >   <groupId>io.github.animatedledstrip</groupId>
 >   <artifactId>animatedledstrip-client</artifactId>
->   <version>0.6</version>
+>   <version>0.7</version>
 > </dependency>
 > ```
 
@@ -217,7 +217,7 @@ Development versions of the animatedledstrip-client library are available from t
 >   <dependency>
 >     <groupId>io.github.animatedledstrip</groupId>
 >     <artifactId>animatedledstrip-client</artifactId>
->     <version>0.7-SNAPSHOT</version>
+>     <version>0.8-SNAPSHOT</version>
 >   </dependency>
 > </dependencies>
 

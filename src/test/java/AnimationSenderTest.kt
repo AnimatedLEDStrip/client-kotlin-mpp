@@ -294,6 +294,8 @@ class AnimationSenderTest {
             s.accept()
         }
 
+        delayBlocking(500)
+
         val testSender = AnimationSender("0.0.0.0", port).start()
 
         delayBlocking(2000)

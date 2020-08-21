@@ -40,13 +40,13 @@ object TestLogWriter : Writer {
 
             assertTrue(
                 "logs do not match:\nexpected: $expectedLogs\nactual: $actualLogs\n" +
-                        "extra values in expected: ${expectedLogs.minus(actualLogs)}"
+                "extra values in expected: ${expectedLogs.minus(actualLogs)}"
             ) {
                 actualLogs.containsAll(expectedLogs)
             }
             assertTrue(
                 "logs do not match:\nexpected: $expectedLogs\nactual: $actualLogs\n" +
-                        "extra values in actual: ${actualLogs.minus(expectedLogs)}"
+                "extra values in actual: ${actualLogs.minus(expectedLogs)}"
             ) {
                 expectedLogs.containsAll(actualLogs)
             }
@@ -62,7 +62,7 @@ object TestLogWriter : Writer {
 
             assertTrue(
                 "logs do not match:\nexpected: $expectedLogs\nactual: $actualLogs\n" +
-                        "extra values in expected: ${expectedLogs.minus(actualLogs)}"
+                "extra values in expected: ${expectedLogs.minus(actualLogs)}"
             ) {
                 actualLogs.containsAll(expectedLogs)
             }

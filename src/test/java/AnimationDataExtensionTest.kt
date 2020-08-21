@@ -27,9 +27,12 @@ import animatedledstrip.client.AnimationSender
 import animatedledstrip.client.endAnimation
 import animatedledstrip.client.send
 import animatedledstrip.colors.ColorContainer
+import animatedledstrip.utils.delayBlocking
 import animatedledstrip.utils.jsonToAnimationData
 import animatedledstrip.utils.toUTF8
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import org.junit.Test
 import java.net.InetAddress
 import java.net.ServerSocket
@@ -56,27 +59,25 @@ class AnimationDataExtensionTest {
                 .id("TEST")
                 .spacing(5)
 
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                val socket = ServerSocket(port, 0, InetAddress.getByName("0.0.0.0")).accept()
-                val inStr = socket!!.getInputStream()
-                val input = ByteArray(1000)
-                val count = inStr.read(input)
-                if (input.toUTF8(count).jsonToAnimationData() == testAnimation) testBoolean = true
-            }
+        GlobalScope.launch(Dispatchers.IO) {
+            val socket = ServerSocket(port, 0, InetAddress.getByName("0.0.0.0")).accept()
+            val inStr = socket!!.getInputStream()
+            val input = ByteArray(1000)
+            val count = inStr.read(input)
+            if (input.toUTF8(count).jsonToAnimationData() == testAnimation) testBoolean = true
         }
 
-        runBlocking { delay(2000) }
+        delayBlocking(500)
 
         val sender =
             AnimationSender("0.0.0.0", port)
                 .start()
 
-        runBlocking { delay(2000) }
+        delayBlocking(2000)
 
         testAnimation.send(sender)
 
-        runBlocking { delay(2000) }
+        delayBlocking(2000)
 
         assertTrue { testBoolean }
     }
@@ -100,26 +101,24 @@ class AnimationDataExtensionTest {
                 .id("TEST")
                 .spacing(5)
 
-        GlobalScope.launch {
-            withContext(Dispatchers.IO) {
-                val socket = ServerSocket(port, 0, InetAddress.getByName("0.0.0.0")).accept()
-                val inStr = socket!!.getInputStream()
-                val input = ByteArray(1000)
-                val count = inStr.read(input)
-                val data = input.toUTF8(count).jsonToAnimationData()
-                testBoolean = true  // TODO: Fix test
-//                if (data.animation == Animation.ENDANIMATION) testBoolean = true
-            }
+        GlobalScope.launch(Dispatchers.IO) {
+            val socket = ServerSocket(port, 0, InetAddress.getByName("0.0.0.0")).accept()
+            val inStr = socket!!.getInputStream()
+            val input = ByteArray(1000)
+            val count = inStr.read(input)
+            if (input.toUTF8(count).startsWith("END :")) testBoolean = true
         }
+
+        delayBlocking(500)
 
         val sender = AnimationSender("0.0.0.0", port)
             .start()
 
-        runBlocking { delay(2000) }
+        delayBlocking(2000)
 
         testAnimation.endAnimation(sender)
 
-        runBlocking { delay(2000) }
+        delayBlocking(2000)
 
         assertTrue { testBoolean }
     }

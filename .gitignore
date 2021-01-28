@@ -1,4 +1,6 @@
-/.idea
+.gradle/
+.idea/
+build/
 *.xml
 *.iml
 !pom.xml

@@ -26,15 +26,3 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.promise
 
 actual fun runInCoroutine(block: suspend () -> Unit): dynamic = GlobalScope.promise { block() }
-//    block.startCoroutine(Continuation<Unit>(EmptyCoroutineContext) { result ->
-//        console.error(result)
-//        result.fold({}, { throw it })
-//                                                resumeWithException(result.exceptionOrNull()!!)
-//            println(result.exceptionOrNull()?.cause)
-//            val exception = result.exceptionOrNull()
-//            throw Exception()
-//            if (result.isFailure && result.exceptionOrNull() != null) throw result.exceptionOrNull()!!
-//            else throw Exception()
-//            result.fold({}, { throw it ?: Exception() })
-//    })
-//}

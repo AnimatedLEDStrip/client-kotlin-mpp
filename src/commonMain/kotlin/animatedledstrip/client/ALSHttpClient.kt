@@ -25,7 +25,6 @@ package animatedledstrip.client
 import animatedledstrip.animations.Animation
 import animatedledstrip.leds.animationmanagement.AnimationToRunParams
 import animatedledstrip.leds.animationmanagement.RunningAnimationParams
-import animatedledstrip.leds.colormanagement.CurrentStripColor
 import animatedledstrip.leds.sectionmanagement.Section
 import animatedledstrip.leds.stripmanagement.StripInfo
 import io.ktor.client.HttpClient
@@ -61,7 +60,7 @@ class ALSHttpClient<out C : HttpClientEngineConfig>(
         return client.get(resolvePath( "/animation/$name"))
     }
 
-    suspend fun getSupportedAnimationNames(): List<String> = client.get(resolvePath("/animations/names"))
+    suspend fun getSupportedAnimationsNames(): List<String> = client.get(resolvePath("/animations/names"))
 
     suspend fun getSupportedAnimations(): List<Animation.AnimationInfo> = client.get(resolvePath("/animations"))
 
@@ -92,7 +91,7 @@ class ALSHttpClient<out C : HttpClientEngineConfig>(
 
     suspend fun endAnimation(animId: String): RunningAnimationParams {
         require(animId.isNotBlank())
-        return client.delete(resolvePath("running/$animId"))
+        return client.delete(resolvePath("/running/$animId"))
     }
 
     suspend fun endAnimation(animParams: RunningAnimationParams): RunningAnimationParams = endAnimation(animParams.id)
@@ -109,7 +108,7 @@ class ALSHttpClient<out C : HttpClientEngineConfig>(
     suspend fun getFullStripSection(): Section = client.get(resolvePath("/section/fullStrip"))
 
     suspend fun createNewSection(section: Section): Section =
-        client.post(resolvePath("/sections/newSection")) {
+        client.post(resolvePath("/sections")) {
             body = section
             contentType(ContentType.Application.Json)
         }
@@ -124,9 +123,7 @@ class ALSHttpClient<out C : HttpClientEngineConfig>(
 
     suspend fun getStripInfo(): StripInfo = client.get(resolvePath("/strip/info"))
 
-    suspend fun getCurrentStripColor(): CurrentStripColor = client.get(resolvePath("/strip/color")) {
-
-    }
+    suspend fun getCurrentStripColor(): List<Int> = client.get(resolvePath("/strip/color"))
 
     suspend fun clearStrip() {
         client.post<Any?>(resolvePath("/strip/clear")) {}

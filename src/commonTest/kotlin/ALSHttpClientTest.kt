@@ -155,13 +155,13 @@ class ALSHttpClientTest {
     }
 
     @Test
-    fun testResolveIp() {
+    fun `resolve path`() {
         testClient.resolvePath("/testEndpoint") shouldBe "http://testURL:8080/testEndpoint"
         testClient.resolvePath("testEndpoint") shouldBe "http://testURL:8080/testEndpoint"
     }
 
     @Test
-    fun testGetAnimationInfo() = runInCoroutine {
+    fun `get animation info`() = runInCoroutine {
         shouldThrow<IllegalArgumentException> {
             testClient.getAnimationInfo("")
         }
@@ -169,23 +169,23 @@ class ALSHttpClientTest {
     }
 
     @Test
-    fun testGetSupportedAnimationNames() = runInCoroutine {
-        testClient.getSupportedAnimationNames() shouldBe listOf("anim1", "anim2", "anim3")
+    fun `get supported animations names`() = runInCoroutine {
+        testClient.getSupportedAnimationsNames() shouldBe listOf("anim1", "anim2", "anim3")
     }
 
     @Test
-    fun testGetSupportedAnimations() = runInCoroutine {
+    fun `get supported animations`() = runInCoroutine {
         testClient.getSupportedAnimations() shouldBe listOf(alternate.info, bounce.info)
     }
 
     @Test
-    fun testGetSupportedAnimationsMap() = runInCoroutine {
+    fun `get supported animations map`() = runInCoroutine {
         testClient.getSupportedAnimationsMap() shouldBe mapOf("Alternate" to alternate.info,
                                                               "Bounce" to bounce.info)
     }
 
     @Test
-    fun testGetRunningAnimations() = runInCoroutine {
+    fun `get running animations`() = runInCoroutine {
         testClient.getRunningAnimations() shouldBe
                 mapOf("anim1" to RunningAnimationParams(color,
                                                         "color",
@@ -218,12 +218,12 @@ class ALSHttpClientTest {
     }
 
     @Test
-    fun testGetRunningAnimationsIds() = runInCoroutine {
+    fun `get running animations ids`() = runInCoroutine {
         testClient.getRunningAnimationsIds() shouldBe listOf("anim4", "anim5", "anim6")
     }
 
     @Test
-    fun testGetRunningAnimationParams() = runInCoroutine {
+    fun `get running animation params`() = runInCoroutine {
         testClient.getRunningAnimationParams("anim7") shouldBe
                 RunningAnimationParams(color,
                                        "color",
@@ -242,7 +242,7 @@ class ALSHttpClientTest {
     }
 
     @Test
-    fun testEndAnimation() = runInCoroutine {
+    fun `end animation`() = runInCoroutine {
         testClient.endAnimation("anim8") shouldBe
                 RunningAnimationParams(color,
                                        "color",
@@ -291,7 +291,7 @@ class ALSHttpClientTest {
     }
 
     @Test
-    fun testStartAnimation() = runInCoroutine {
+    fun `start animation`() = runInCoroutine {
         val params = AnimationToRunParams("color")
         testClient.startAnimation(params) shouldBe RunningAnimationParams(color,
                                                                           "color",

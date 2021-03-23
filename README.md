@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/AnimatedLEDStrip/client-kotlin-jvm.svg?branch=master)](https://travis-ci.com/AnimatedLEDStrip/client-kotlin-jvm)
+[![Build Status](https://github.com/AnimatedLEDStrip/client-kotlin-mpp/actions/workflows/test.yml/badge.svg)](https://github.com/AnimatedLEDStrip/client-kotlin-mpp/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-jvm/branch/master/graph/badge.svg)](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-jvm)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client)
 
@@ -25,3 +25,7 @@ install(JsonFeature) {
     serializer = KotlinxSerializer(alsSerializer)
 }
 ```
+
+## Communicating with the Server
+
+This library follows the conventions laid out for [AnimatedLEDStrip client libraries](https://animatedledstrip.github.io/client-libraries).

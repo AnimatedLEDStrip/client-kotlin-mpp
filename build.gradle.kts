@@ -97,7 +97,7 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation("io.ktor:ktor-client-mock:1.5.0")
-                implementation("io.kotest:kotest-assertions-core:4.3.2")
+                implementation("io.kotest:kotest-assertions-core:4.4.3")
                 implementation("io.kotest:kotest-property:4.3.2")
             }
         }

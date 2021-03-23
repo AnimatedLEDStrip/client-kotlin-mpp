@@ -109,7 +109,7 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit5"))
-                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
             }
         }
         val jsMain by getting {

@@ -25,15 +25,15 @@ tasks.wrapper {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.4.21"
-    kotlin("plugin.serialization") version "1.4.21"
-    id("org.jetbrains.dokka") version "1.4.20"
+    kotlin("multiplatform") version "1.4.32"
+    kotlin("plugin.serialization") version "1.4.32"
+    id("org.jetbrains.dokka") version "1.4.30"
     id("io.kotest") version "0.2.6"
     jacoco
     id("java-library")
     signing
     id("de.marcphilipp.nexus-publish") version "0.4.0"
-    id("io.codearte.nexus-staging") version "0.22.0"
+    id("io.codearte.nexus-staging") version "0.30.0"
 }
 
 jacoco {
@@ -47,7 +47,7 @@ repositories {
 }
 
 group = "io.github.animatedledstrip"
-version = "1.0.0-pre3-SNAPSHOT"
+version = "1.0.0-SNAPSHOT"
 description = "A helper library for communicating with an AnimatedLEDStrip server"
 
 kotlin {
@@ -87,7 +87,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core:1.0.0-pre3-SNAPSHOT")
+                api("io.github.animatedledstrip:animatedledstrip-core:1.0.0")
                 api("io.ktor:ktor-client-core:1.5.0")
                 api("io.ktor:ktor-client-serialization:1.5.0")
             }
@@ -97,13 +97,13 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 implementation("io.ktor:ktor-client-mock:1.5.0")
-                implementation("io.kotest:kotest-assertions-core:4.3.2")
-                implementation("io.kotest:kotest-property:4.3.2")
+                implementation("io.kotest:kotest-assertions-core:4.4.3")
+                implementation("io.kotest:kotest-property:4.4.3")
             }
         }
         val jvmMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core-jvm:1.0.0-pre3-SNAPSHOT")
+                api("io.github.animatedledstrip:animatedledstrip-core-jvm:1.0.0")
             }
         }
         val jvmTest by getting {
@@ -114,7 +114,7 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core-js:1.0.0-pre3-SNAPSHOT")
+                api("io.github.animatedledstrip:animatedledstrip-core-js:1.0.0")
             }
         }
         val jsTest by getting {
@@ -168,10 +168,11 @@ tasks.jacocoTestReport {
     }
 }
 
+val javadoc = tasks.named("javadoc")
+
 val javadocJar by tasks.creating(Jar::class) {
-    dependsOn.add(tasks.dokkaJavadoc)
     archiveClassifier.set("javadoc")
-    from(tasks.dokkaJavadoc)
+    from(javadoc)
 }
 
 publishing {
@@ -181,7 +182,7 @@ publishing {
             pom {
                 name.set("AnimatedLEDStrip Client")
                 description.set("A helper library for communicating with an AnimatedLEDStrip server")
-                url.set("https://github.com/AnimatedLEDStrip/client-kotlin")
+                url.set("https://github.com/AnimatedLEDStrip/client-kotlin-mpp")
 
                 licenses {
                     license {
@@ -200,9 +201,9 @@ publishing {
                 }
 
                 scm {
-                    connection.set("scm:git:https://github.com/AnimatedLEDStrip/client-kotlin.git")
-                    developerConnection.set("scm:git:https://github.com/AnimatedLEDStrip/client-kotlin.git")
-                    url.set("https://github.com/AnimatedLEDStrip/client-kotlin")
+                    connection.set("scm:git:https://github.com/AnimatedLEDStrip/client-kotlin-mpp.git")
+                    developerConnection.set("scm:git:https://github.com/AnimatedLEDStrip/client-kotlin-mpp.git")
+                    url.set("https://github.com/AnimatedLEDStrip/client-kotlin-mpp")
                 }
             }
         }

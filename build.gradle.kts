@@ -103,7 +103,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core-jvm:1.0.0")
+                api("io.github.animatedledstrip:animatedledstrip-core-jvm:1.0.0-pre6.1")
             }
         }
         val jvmTest by getting {

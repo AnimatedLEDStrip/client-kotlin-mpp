@@ -46,6 +46,7 @@ import io.ktor.http.HttpStatusCode
 import io.ktor.http.fullPath
 import io.ktor.http.headersOf
 import kotlinx.serialization.encodeToString
+import kotlin.js.JsName
 import kotlin.test.Test
 import animatedledstrip.communication.serializer as alsSerializer
 
@@ -179,12 +180,14 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("resolvePath")
     fun `resolve path`() {
         testClient.resolvePath("/testEndpoint") shouldBe "http://testURL:8080/testEndpoint"
         testClient.resolvePath("testEndpoint") shouldBe "http://testURL:8080/testEndpoint"
     }
 
     @Test
+    @JsName("getAnimationInfo")
     fun `get animation info`() = runInCoroutine {
         shouldThrow<IllegalArgumentException> {
             testClient.getAnimationInfo("")
@@ -193,28 +196,33 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("getSupportedAnimations")
     fun `get supported animations`() = runInCoroutine {
         testClient.getSupportedAnimations() shouldBe listOf(alternate.info, bounce.info)
     }
 
     @Test
+    @JsName("getSupportedAnimationsMap")
     fun `get supported animations map`() = runInCoroutine {
         testClient.getSupportedAnimationsMap() shouldBe mapOf("Alternate" to alternate.info,
                                                               "Bounce" to bounce.info)
     }
 
     @Test
+    @JsName("getSupportedAnimationsNames")
     fun `get supported animations names`() = runInCoroutine {
         testClient.getSupportedAnimationsNames() shouldBe listOf("anim1", "anim2", "anim3")
     }
 
     @Test
+    @JsName("createNewGroup")
     fun `create new group`() = runInCoroutine {
         testClient.createNewGroup(sortingAnimations) shouldBe sortingAnimations.groupInfo
     }
 
 
     @Test
+    @JsName("getRunningAnimations")
     fun `get running animations`() = runInCoroutine {
         testClient.getRunningAnimations() shouldBe
                 mapOf("anim1" to RunningAnimationParams(color,
@@ -248,11 +256,13 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("getRunningAnimationsIds")
     fun `get running animations ids`() = runInCoroutine {
         testClient.getRunningAnimationsIds() shouldBe listOf("anim4", "anim5", "anim6")
     }
 
     @Test
+    @JsName("getRunningAnimationParams")
     fun `get running animation params`() = runInCoroutine {
         testClient.getRunningAnimationParams("anim7") shouldBe
                 RunningAnimationParams(color,
@@ -272,6 +282,7 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("endAnimation")
     fun `end animation`() = runInCoroutine {
         testClient.endAnimation("anim8") shouldBe
                 RunningAnimationParams(color,
@@ -322,6 +333,7 @@ class ALSHttpClientTest {
 
 
     @Test
+    @JsName("getSections")
     fun `get sections`() = runInCoroutine {
         val sections = testClient.getSections()
         sections.shouldHaveSize(2)
@@ -334,6 +346,7 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("getSectionsMap")
     fun `get sections map`() = runInCoroutine {
         val sections = testClient.getSectionsMap()
         sections.shouldHaveSize(2)
@@ -347,6 +360,7 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("getSection")
     fun `get section`() = runInCoroutine {
         val section1 = testClient.getSection("s1")
         section1.name shouldBe "s1"
@@ -360,6 +374,7 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("getFullStripSection")
     fun `get full strip section`() = runInCoroutine {
         val section1 = testClient.getFullStripSection()
         section1.name shouldBe "s0"
@@ -373,6 +388,7 @@ class ALSHttpClientTest {
     }
 
     @Test
+    @JsName("createNewSection")
     fun `create new section`() = runInCoroutine {
         val newSection = testClient.createNewSection(Section("s3", listOf(5, 6, 7, 8), "s2"))
         newSection.name shouldBe "s3"
@@ -382,6 +398,7 @@ class ALSHttpClientTest {
 
 
     @Test
+    @JsName("startAnimation")
     fun `start animation`() = runInCoroutine {
         testClient.startAnimation(AnimationToRunParams("color")) shouldBe
                 RunningAnimationParams(color,
@@ -402,11 +419,13 @@ class ALSHttpClientTest {
 
 
     @Test
+    @JsName("getStripInfo")
     fun `get strip info`() = runInCoroutine {
         testClient.getStripInfo() shouldBe StripInfo(10, 12, is2DSupported = true)
     }
 
     @Test
+    @JsName("getCurrentStripColor")
     fun `get current strip color`() = runInCoroutine {
         testClient.getCurrentStripColor() shouldBe listOf(0xFF, 0xFF, 0xFFFF, 0xFFFF, 0xFFFFFF, 0xFFFFFF)
     }

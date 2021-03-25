@@ -88,15 +88,15 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("io.github.animatedledstrip:animatedledstrip-core:1.0.0")
-                api("io.ktor:ktor-client-core:1.5.0")
-                api("io.ktor:ktor-client-serialization:1.5.0")
+                api("io.ktor:ktor-client-core:1.5.2")
+                api("io.ktor:ktor-client-serialization:1.5.2")
             }
         }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation("io.ktor:ktor-client-mock:1.5.0")
+                implementation("io.ktor:ktor-client-mock:1.5.2")
                 implementation("io.kotest:kotest-assertions-core:4.4.3")
                 implementation("io.kotest:kotest-property:4.4.3")
             }
@@ -109,12 +109,12 @@ kotlin {
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit5"))
-                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
             }
         }
         val jsMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core-js:1.0.0")
+                api("io.github.animatedledstrip:animatedledstrip-core-js:1.0.0-pre6.1")
             }
         }
         val jsTest by getting {

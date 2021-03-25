@@ -23,6 +23,7 @@
 package animatedledstrip.client
 
 import animatedledstrip.animations.Animation
+import animatedledstrip.animations.groups.AnimationGroup
 import animatedledstrip.leds.animationmanagement.AnimationToRunParams
 import animatedledstrip.leds.animationmanagement.RunningAnimationParams
 import animatedledstrip.leds.sectionmanagement.Section
@@ -55,29 +56,25 @@ class ALSHttpClient<out C : HttpClientEngineConfig>(
     internal fun resolvePath(path: String): String =
         "http://$ip:8080${if (path.startsWith("/")) path else "/$path"}"
 
+
     suspend fun getAnimationInfo(name: String): Animation.AnimationInfo {
         require(name.isNotBlank())
         return client.get(resolvePath( "/animation/$name"))
     }
 
-    suspend fun getSupportedAnimationsNames(): List<String> = client.get(resolvePath("/animations/names"))
 
     suspend fun getSupportedAnimations(): List<Animation.AnimationInfo> = client.get(resolvePath("/animations"))
 
     suspend fun getSupportedAnimationsMap(): Map<String, Animation.AnimationInfo> =
         client.get(resolvePath("/animations/map"))
 
-//    suspend fun newOrderedGroup(group: OrderedAnimationGroup): Animation.AnimationInfo =
-//        client.post(resolvePath("/animations/newOrderedGroup")) {
-//            body = group
-//            contentType(ContentType.Application.Json)
-//        }
-//
-//    suspend fun newRandomizedGroup(group: RandomizedAnimationGroup): Animation.AnimationInfo =
-//        client.post(resolvePath("/animations/newRandomizedGroup")) {
-//            body = group
-//            contentType(ContentType.Application.Json)
-//        }
+    suspend fun getSupportedAnimationsNames(): List<String> = client.get(resolvePath("/animations/names"))
+
+    suspend fun createNewGroup(groupInfo: AnimationGroup.NewAnimationGroupInfo): Animation.AnimationInfo =
+        client.post(resolvePath("/animations/newGroup")) {
+            body = groupInfo
+            contentType(ContentType.Application.Json)
+        }
 
 
     suspend fun getRunningAnimations(): Map<String, RunningAnimationParams> = client.get(resolvePath("/running"))

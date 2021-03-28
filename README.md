@@ -1,5 +1,5 @@
 [![Build Status](https://github.com/AnimatedLEDStrip/client-kotlin-mpp/actions/workflows/test.yml/badge.svg)](https://github.com/AnimatedLEDStrip/client-kotlin-mpp/actions/workflows/test.yml)
-[![codecov](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-jvm/branch/master/graph/badge.svg)](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-jvm)
+[![codecov](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-mpp/branch/master/graph/badge.svg)](https://codecov.io/gh/AnimatedLEDStrip/client-kotlin-mpp)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.animatedledstrip/animatedledstrip-client)
 
 # AnimatedLEDStrip Client Library for Kotlin/MPP

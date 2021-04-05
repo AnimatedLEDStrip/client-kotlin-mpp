@@ -96,7 +96,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
-                implementation("io.ktor:ktor-client-mock:1.5.2")
+                implementation("io.ktor:ktor-client-mock:1.5.3")
                 implementation("io.kotest:kotest-assertions-core:4.4.3")
                 implementation("io.kotest:kotest-property:4.4.3")
             }

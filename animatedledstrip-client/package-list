@@ -1,5 +1,27 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:animatedledstrip.client$endAnimation(animatedledstrip.animationutils.AnimationData, animatedledstrip.client.AnimationSender)animatedledstrip.client/animatedledstrip.animationutils.-animation-data/end-animation.html
-$dokka.location:animatedledstrip.client$send(animatedledstrip.animationutils.AnimationData, animatedledstrip.client.AnimationSender)animatedledstrip.client/animatedledstrip.animationutils.-animation-data/send.html
+$dokka.location:animatedledstrip.client////PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/index.html
+$dokka.location:animatedledstrip.client/ALSHttpClient///PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/index.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/ALSHttpClient/#io.ktor.client.engine.HttpClientEngineFactory[TypeParam(bounds=[io.ktor.client.engine.HttpClientEngineConfig])]#kotlin.String#kotlin.Function1[io.ktor.client.HttpClientConfig[TypeParam(bounds=[io.ktor.client.engine.HttpClientEngineConfig])],kotlin.Unit]/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/-a-l-s-http-client.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/clearStrip/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/clear-strip.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/createNewGroup/#animatedledstrip.animations.groups.AnimationGroup.NewAnimationGroupInfo/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/create-new-group.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/createNewSection/#animatedledstrip.leds.sectionmanagement.Section/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/create-new-section.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/endAnimation/#animatedledstrip.leds.animationmanagement.RunningAnimationParams/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/end-animation.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/endAnimation/#kotlin.String/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/end-animation.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getAnimationInfo/#kotlin.String/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-animation-info.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getCurrentStripColor/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-current-strip-color.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getFullStripSection/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-full-strip-section.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getRunningAnimationParams/#kotlin.String/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-running-animation-params.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getRunningAnimations/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-running-animations.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getRunningAnimationsIds/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-running-animations-ids.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getSection/#kotlin.String/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-section.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getSections/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-sections.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getSectionsMap/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-sections-map.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getStripInfo/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-strip-info.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getSupportedAnimations/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-supported-animations.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getSupportedAnimationsMap/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-supported-animations-map.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/getSupportedAnimationsNames/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/get-supported-animations-names.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/ip/#/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/ip.html
+$dokka.location:animatedledstrip.client/ALSHttpClient/startAnimation/#animatedledstrip.leds.animationmanagement.AnimationToRunParams/PointingToDeclaration/animatedledstrip-client/animatedledstrip.client/-a-l-s-http-client/start-animation.html
 animatedledstrip.client
+

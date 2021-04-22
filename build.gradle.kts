@@ -47,7 +47,7 @@ repositories {
 }
 
 group = "io.github.animatedledstrip"
-version = "1.0.0-SNAPSHOT"
+version = "1.0.1"
 description = "A helper library for communicating with an AnimatedLEDStrip server"
 
 kotlin {
@@ -87,7 +87,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core:1.0.0")
+                api("io.github.animatedledstrip:animatedledstrip-core:1.0.1")
                 api("io.ktor:ktor-client-core:1.5.2")
                 api("io.ktor:ktor-client-serialization:1.5.2")
             }
@@ -103,7 +103,7 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core-jvm:1.0.0")
+                api("io.github.animatedledstrip:animatedledstrip-core-jvm:1.0.1")
             }
         }
         val jvmTest by getting {
@@ -114,7 +114,7 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                api("io.github.animatedledstrip:animatedledstrip-core-js:1.0.0")
+                api("io.github.animatedledstrip:animatedledstrip-core-js:1.0.1")
             }
         }
         val jsTest by getting {

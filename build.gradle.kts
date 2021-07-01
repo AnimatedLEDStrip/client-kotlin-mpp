@@ -88,7 +88,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api("io.github.animatedledstrip:animatedledstrip-core:1.0.1")
-                api("io.ktor:ktor-client-core:1.5.2")
+                api("io.ktor:ktor-client-core:1.6.1")
                 api("io.ktor:ktor-client-serialization:1.5.2")
             }
         }
